@@ -32,25 +32,27 @@ function actualizarLista() {
   }
 }
 function sortearAmigo() {
- // 1) Si no hay nombres, avisamos y salimos
+  // 1) Validar
   if (amigos.length === 0) {
     alert("Ya no hay más nombres por sortear.");
     return;
-  
-// 2. Generar un índice aleatorio válido
-    const indice = Math.floor(Math.random() * amigos.length);
+  }
 
-// 3) Tomar y ELIMINAR el nombre del arreglo
+  // 2) Índice aleatorio
+  const indice = Math.floor(Math.random() * amigos.length);
+
+  // 3) Tomar y ELIMINAR el nombre
   const sorteado = amigos.splice(indice, 1)[0];
-  
- // 4) Mostrar resultado
-  document.getElementById("resultado").innerHTML = `<li>${sorteado}</li>`;
 
-  // 5) Refrescar la lista en pantalla para que se note que desapareció
-  actualizarLista();
+  // 4) Limpiar lista visual y mostrar resultado
+  document.getElementById("listaAmigos").innerHTML = "";
+  document.getElementById(
+    "resultado"
+  ).innerHTML = `<li>El amigo secreto sorteado es: <strong>${sorteado}</strong></li>`;
 
-  // 6) Si ya no queda nadie, deshabilitar el botón de sorteo (opcional)
-  if (amigos.length === 0) {
-    document.querySelector('button[aria-label="Sortear amigo secreto"]').disabled = true;
- 
+  // 5) Si ya no queda nadie, deshabilitar botón (usa el aria-label del HTML) :contentReference[oaicite:0]{index=0}
+  const botonSortear = document.querySelector(
+    'button[aria-label="Sortear amigo secreto"]'
+  );
+  if (botonSortear && amigos.length === 0) botonSortear.disabled = true;
 }

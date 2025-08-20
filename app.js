@@ -32,18 +32,25 @@ function actualizarLista() {
   }
 }
 function sortearAmigo() {
-  // 1. Validar que el array amigos no esté vacío
+ // 1) Si no hay nombres, avisamos y salimos
   if (amigos.length === 0) {
-    alert("Por favor, inserte al menos un nombre.");
+    alert("Ya no hay más nombres por sortear.");
     return;
-  }
+  
+// 2. Generar un índice aleatorio válido
+    const indice = Math.floor(Math.random() * amigos.length);
 
-  // 2. Generar un índice aleatorio válido
-  let indice = Math.floor(Math.random() * amigos.length);
+// 3) Tomar y ELIMINAR el nombre del arreglo
+  const sorteado = amigos.splice(indice, 1)[0];
+  
+ // 4) Mostrar resultado
+  document.getElementById("resultado").innerHTML = `<li>${sorteado}</li>`;
 
-  // 3. Obtener el nombre sorteado
-  let sorteado = amigos[indice];
+  // 5) Refrescar la lista en pantalla para que se note que desapareció
+  actualizarLista();
 
-  // 4. Mostrar el resultado en pantalla
-  document.getElementById("resultado").innerHTML = "<li>" + sorteado + "</li>";
+  // 6) Si ya no queda nadie, deshabilitar el botón de sorteo (opcional)
+  if (amigos.length === 0) {
+    document.querySelector('button[aria-label="Sortear amigo secreto"]').disabled = true;
+ 
 }
